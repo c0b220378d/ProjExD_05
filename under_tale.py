@@ -277,9 +277,6 @@ class Bullet(pg.sprite.Sprite):
         if attack_type:
             self.speed = 3
         self.vx, self.vy = calc_orientation(self.rect, pre_x, pre_y)
-        shoot_sound = load_sound("ショット.mp3")
-        if pg.mixer:
-            shoot_sound.play()
 
     def update(self):
         """
@@ -369,6 +366,7 @@ class Beam(pg.sprite.Sprite):
         self.beam_time = tmr + 50
         beam_sound = load_sound("ビーム砲2.mp3")
         if pg.mixer:
+            beam_sound.set_volume(0.4)
             beam_sound.play()
 
     def update(self, tmr):
