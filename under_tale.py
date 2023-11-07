@@ -452,8 +452,6 @@ def main():
     hp_bar_black.genobj((1, 1, 1), (170, 0, 100, 20), hpbar_sur)
     damage_txt = Hp()
     damage_txt.genfont("")
-    damage_txt = Hp()
-    damage_txt.genfont("")
     #　ここまで
     
     attack_bar_lis = [10, 5] # インデックス０（表示するｘ座標）インデックス１（移動するｘ座標のピクセル量）
