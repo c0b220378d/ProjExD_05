@@ -122,9 +122,8 @@ class player_move:
                 self.sum_mv[1] += mv[1]
         if gravity and not self.jump:
             self.sum_mv[1] = 1
-        elif self.jump:
+        elif hop:
             self.sum_mv[1] = hop
-
         self.rect.move_ip(self.sum_mv)
         if self.rect[1]<205:#上
             self.rect[1]=205
@@ -633,14 +632,14 @@ def main():
 
         # 以下敵の攻撃用変数などを生成またはリセット
         if turn_flag and not processed:
+            player.rect.center = [WIDTH/2, HEIGHT/2]
             gravity = False
+            decision = False
             enemy_hp_bar_red.locate = (250, 40, 300, 20)
             enemy_hp_bar_green.locate = (250, 40, enemy_hp, 20)
             player.image = pg.transform.rotozoom(pg.image.load(f"ex05/fig/0.png"), 0, 0.02)
             attack_type = random.randint(0, 4)
-            #attack_type = 4
             if attack_type == 4:
-                # player.sum_mv = [0, 1]
                 player.image = pg.transform.rotozoom(pg.image.load(f"ex05/fig/1.png"), 0, 0.02)
                
             # 拡散弾幕用変数
@@ -964,6 +963,9 @@ def main():
         if mode == "avoid":
             pg.draw.rect(bg, (0, 0, 0), (270, 100, 300, 100))
             emys.update(bg)
+            if not decision:
+                change_tmr = tmr
+                decision = True
             if attacked:
                 if tmr < attack_tmr + 100:
                     damage_txt.fonto = pg.font.Font(None, 90)
@@ -1073,11 +1075,10 @@ def main():
                         sin = 4.5-math.cos(math.radians(player.jump_tmr)) * 10
                         # if sin > 0:
                         #     sin = sin/3
-                # print(player.jump_tmr)
                 sin = sin/2
                 player.update(key_lst, screen, gravity, sin)
                 # ジャンプステージ
-                if tmr > attack_tmr + 50:
+                if tmr > change_tmr + 50:
                     if tmr % 200 == 0:
                         enemy_attack_count += 1.5
                         gen_rope_jump(random.randint(STAGE_TOP+25, STAGE_BOTTOM-25),pillars, dummy_pillars)
