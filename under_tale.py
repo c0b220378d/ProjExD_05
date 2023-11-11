@@ -693,7 +693,7 @@ def main():
         elif hp_bar_green.width < 0:
             hp_bar_green.width = 0
         hp_bar_green.locate = (50, 0, hp_bar_green.width, 20)
-        if enemy_hp > 20:
+        if enemy_hp > 200:
             menu_txt = "* じっとこちらをみている"
         elif enemy_hp > 100:
             menu_txt = "* こわいかおでにらんでいる"
@@ -707,6 +707,8 @@ def main():
 
         # 以下敵の攻撃用変数などを生成またはリセット
         if turn_flag and not processed:
+            pg.draw.rect(sikaku1, (255, 255, 255), (0, 0, 400, 200))
+            pg.draw.rect(sikaku1, (0, 0, 0), (5, 5, 390, 190))
             player.rect.center = [WIDTH/2, HEIGHT/2]
             gravity = False
             decision = False
@@ -1191,9 +1193,9 @@ def main():
                         arrow = Arrow(270, WIDTH/2, 115, screen)
                         arrows.add(arrow)
                     
-                player.update(None, screen)
                 shields.update(key_lst)
                 shields.draw(screen)
+                player.update(None, screen)
                 
 
             if not (attack_type == 4 or attack_type == 5):
