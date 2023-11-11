@@ -1175,7 +1175,8 @@ def main():
                 pg.draw.rect(sikaku1, (255, 255, 255), (150, 50, 100, 100))
                 pg.draw.rect(sikaku1, (0, 0, 0), (155, 55, 90, 90))
                 screen.blit(sikaku1, (200, 200))
-                if tmr % 100 == 0:
+                if tmr % 50 == 0:
+                    enemy_attack_count += 0.4
                     i = random.randint(0, 3)
                     if i == 0:
                         arrow = Arrow(0, 215, 300, screen)
@@ -1234,9 +1235,6 @@ def main():
             for arrow in arrows:
                 for shield in shields:
                     if pg.sprite.collide_mask(shield, arrow):
-                        hit_sound = load_sound("ショット命中.mp3")
-                        if pg.mixer:
-                            hit_sound.play()
                         arrow.kill()
 
             flowers.update()
